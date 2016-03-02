@@ -1,9 +1,8 @@
-package com.krita.library;
+package com.krita.library.ws;
 
-import com.krita.library.ws.sample.HelloController;
+import com.krita.library.ws.impl.BookLibraryWsImpl;
 import org.hamcrest.Matchers;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -19,25 +18,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Created by soundar on 22/02/2016.
+ * Created by soundar on 02/03/2016.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = MockServletContext.class)
 @WebAppConfiguration
-@Ignore
-public class HelloControllerTest {
-
+public class BookLibraryImplTest {
     private MockMvc mvc;
 
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new HelloController()).build();
+        mvc = MockMvcBuilders.standaloneSetup(new BookLibraryWsImpl()).build();
     }
-
     @Test
     public void getHello() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/GetBookList").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(Matchers.equalTo(("Greetings from Spring Boot!"))));
+                .andExpect(content().string(Matchers.equalTo(("BookList"))));
     }
 }
